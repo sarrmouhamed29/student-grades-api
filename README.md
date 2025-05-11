@@ -2,7 +2,7 @@
 
 Une API RESTful pour gérer les élèves, les matières et les notes, développée avec FastAPI et PostgreSQL.
 
-## 🎯 Fonctionnalités
+## Fonctionnalités
 
 - Gestion complète des élèves (CRUD)
 - Gestion des matières (CRUD)
@@ -10,7 +10,7 @@ Une API RESTful pour gérer les élèves, les matières et les notes, développ�
 - Calcul des moyennes par élève et par matière
 - Documentation interactive avec Swagger UI
 
-## 🛠️ Technologies utilisées
+## Technologies utilisées
 
 - **Backend**: FastAPI (Python)
 - **Base de données**: PostgreSQL
@@ -19,7 +19,7 @@ Une API RESTful pour gérer les élèves, les matières et les notes, développ�
 - **CI/CD**: GitHub Actions
 - **Déploiement**: Railway
 
-## 🚀 Démarrage rapide
+## Démarrage rapide
 
 ### Prérequis
 
@@ -61,7 +61,7 @@ Une API RESTful pour gérer les élèves, les matières et les notes, développ�
    - API: http://localhost:8000/
    - Documentation Swagger: http://localhost:8000/docs
 
-## 📋 API Endpoints
+## API Endpoints
 
 ### Gestion des élèves
 - `POST /students` - Ajouter un élève
@@ -88,7 +88,7 @@ Une API RESTful pour gérer les élèves, les matières et les notes, développ�
 - `GET /grades/student/{student_id}` - Notes d'un élève
 - `GET /grades/subject/{subject_id}` - Notes d'une matière
 
-## 🚢 Déploiement sur Railway
+## Déploiement sur Railway
 
 ### Configuration manuelle
 
@@ -103,10 +103,10 @@ Une API RESTful pour gérer les élèves, les matières et les notes, développ�
 2. Ajouter le token comme secret GitHub nommé `RAILWAY_TOKEN`
 3. Pousser sur la branche `main` pour déclencher le déploiement automatique
 
-## 🧪 Tests
+## Tests
 
-(À venir)
+Fonctionne comme prévu
 
-## 📄 Licence
+## Licence
 
 MIT
