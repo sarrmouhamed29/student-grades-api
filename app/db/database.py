@@ -1,19 +1,31 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 
-from app.core.config import settings
+# Load environment variables from .env file if it exists
+load_dotenv()
 
-# Create SQLAlchemy engine
-engine = create_engine(settings.DATABASE_URL)
+# Get database URL from Railway environment or use default
+DATABASE_URL = os.getenv("DATABASE_URL", None)
 
-# Create SessionLocal class
+# If no DATABASE_URL is provided, construct it from individual components
+if not DATABASE_URL:
+    POSTGRES_USER = os.getenv("POSTGRES_USER", "postgres")
+    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "password")
+    POSTGRES_SERVER = os.getenv("POSTGRES_SERVER", "localhost")
+    POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
+    POSTGRES_DB = os.getenv("POSTGRES_DB", "student_grades_db")
+    
+    DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
+
+# Create SQLAlchemy engine and session
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Create Base class
 Base = declarative_base()
 
-# Dependency
+# Dependency to get DB session
 def get_db():
     db = SessionLocal()
     try:

@@ -32,8 +32,10 @@ jobs:
         run: npm install -g @railway/cli
 
       - name: Deploy to Railway
-        uses: railwayapp/cli-action@v1
-        with:
-          railwayToken: ${{ secrets.RAILWAY_TOKEN }}
-          # If you have multiple environments, you can specify which one to deploy to
-          # environment: production
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway up
+        # Alternative using the action:
+        # uses: railwayapp/cli-action@v1
+        # with:
+        #   railwayToken: ${{ secrets.RAILWAY_TOKEN }}
