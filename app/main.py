@@ -1,11 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 from app.db.database import engine, Base
 from app.api.endpoints import students, subjects, grades
-
-# Create database tables
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Student Grades API",
@@ -29,8 +27,26 @@ app.include_router(grades.router, prefix="/grades", tags=["grades"])
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to Student Grades API"}
+    # Afficher des informations sur l'environnement pour le débogage
+    db_url = os.getenv("DATABASE_URL", "Not set")
+    if db_url and len(db_url) > 20:
+        db_url = db_url[:10] + "..." + db_url[-10:]
+        
+    return {
+        "message": "Welcome to Student Grades API",
+        "environment": os.getenv("ENVIRONMENT", "development"),
+        "database_connected": db_url != "Not set"
+    }
+
+@app.on_event("startup")
+async def startup_db_client():
+    # Créer les tables de la base de données au démarrage
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("Database tables created successfully")
+    except Exception as e:
+        print(f"Error creating database tables: {e}")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=int(os.getenv("PORT", "8000")), reload=True)
