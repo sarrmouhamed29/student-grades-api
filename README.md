@@ -105,7 +105,8 @@ Une API RESTful pour gérer les élèves, les matières et les notes, développ�
 
 ## Tests
 
-Fonctionne comme prévu
+Fonctionne comme prévu en local 
+domain railway (a tester) student-grades-api-production-338e.up.railway.app
 
 ## Licence
 
