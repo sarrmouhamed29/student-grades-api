@@ -22,14 +22,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-        
       - name: Deploy to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          # Lier explicitement au projet Railway et à l'environnement de production
-          railway link --environment production
-          # Déployer l'application
-          railway up --detach
+        uses: railwayapp/cli-action@master
+        with:
+          railway-token: ${{ secrets.RAILWAY_TOKEN }}
+          command: up --detach
