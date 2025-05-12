@@ -37,9 +37,9 @@ jobs:
           flake8 .
 
       - name: Deploy to Railway
-        uses: railwayapp/action@v1
+        uses: railwayapp/cli-action@lastest
         with:
           railwayToken: ${{ secrets.RAILWAY_TOKEN }}
           # Optionnel: spécifier un environnement ou un projet
           # environment: production
-          projectId: ${{ secrets.RAILWAY_PROJECT_ID }}
+          # projectId: ${{ secrets.RAILWAY_PROJECT_ID }}
