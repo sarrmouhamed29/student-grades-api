@@ -24,12 +24,6 @@ jobs:
         run: npm install -g @railway/cli
       
       - name: Railway login and deploy
-        run: |
-          # Use token directly for authentication
-          railway login --token ${{ secrets.RAILWAY_TOKEN }}
-          # Link to project
-          railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
-          ## Deploy
-          railway up --service student-grades-api --detach
+        run: railway up --service student-grades-api --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
