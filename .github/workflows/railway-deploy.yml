@@ -1,4 +1,4 @@
-name: Deploy to Railway
+name: Deploy FastAPI to Railway
 
 on:
   push:
@@ -8,27 +8,38 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
-      - name: Set up Python
+
+      - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-          
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
-        
-      - name: Deploy to Railway with CLI
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+      - name: Run tests (optional)
         run: |
-          echo "$RAILWAY_TOKEN" | railway login
-          railway link --environment production
-          railway up --detach
+          # Exemple si vous utilisez pytest
+          pytest tests/
+          # Ou pour lancer les tests avec unittest
+          # python -m unittest discover
+
+      - name: Lint code (optional)
+        run: |
+          # Exemple avec flake8
+          pip install flake8
+          flake8 .
+
+      - name: Deploy to Railway
+        uses: railwayapp/cli-action@v1
+        with:
+          railwayToken: ${{ secrets.RAILWAY_TOKEN }}
+          # Optionnel: spécifier un environnement ou un projet
+          # environment: production
+          projectId: ${{ secrets.RAILWAY_PROJECT_ID }}
