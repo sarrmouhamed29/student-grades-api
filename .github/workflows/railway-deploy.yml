@@ -8,23 +8,27 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          node-version: '18'
-
+          python-version: '3.11'
+          
       - name: Install dependencies
-        run: npm install
-
-      - name: Run tests (optional)
-        run: npm test
-
-      - name: Deploy to Railway
-        uses: railwayapp/cli-action@v1
-        with:
-          railwayToken: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+        
+      - name: Deploy to Railway with CLI
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          echo "$RAILWAY_TOKEN" | railway login
+          railway link --environment production
+          railway up --detach
