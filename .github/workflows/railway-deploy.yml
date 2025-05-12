@@ -26,11 +26,15 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      - name: Railway login, link, and download env
+      - name: Railway link and download env
         run: |
           railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
           railway download --environment production
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
       - name: Deploy to Railway
         run: |
           railway up --service student-grades-api --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
