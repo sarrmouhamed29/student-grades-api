@@ -29,7 +29,7 @@ jobs:
           railway login --token ${{ secrets.RAILWAY_TOKEN }}
           # Link to project
           railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
-          # Deploy
+          ## Deploy
           railway up --service student-grades-api --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
