@@ -21,7 +21,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Deploy to Railway
-        uses: student-grades-api/railway-deploy@main
+        uses: bervProject/railway-deploy@main
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         with:
