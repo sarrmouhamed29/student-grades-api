@@ -28,7 +28,6 @@ jobs:
 
       - name: Railway login, link, and download env
         run: |
-          railway login --browserless --token ${{ secrets.RAILWAY_TOKEN }}
           railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
           railway download --environment production
 
